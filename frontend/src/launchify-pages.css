@@ -1,4 +1,5 @@
 .opsBand,.fullKitchen,.routeBody,.docsLayout{padding:72px 4%;border-top:2px solid var(--ink)}
+.laneAction{margin-top:20px;border:0;border-bottom:2px solid var(--ink);background:transparent;padding:6px 0;display:flex;align-items:center;gap:7px;font-weight:900;cursor:pointer}.laneAction:hover{color:var(--red);transform:translateX(3px)}
 .opsMetrics{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:24px;overflow:hidden;background:#fff}
 .opsMetrics article{min-height:150px;padding:24px;display:flex;flex-direction:column;gap:9px;border-right:1px solid var(--ink)}
 .opsMetrics article:last-child{border-right:0}.opsMetrics svg,.techGrid svg{color:var(--red)}.opsMetrics small{font:700 11px DM Mono;letter-spacing:.08em}.opsMetrics strong{font-size:42px}.opsMetrics span{font-size:13px;color:#6e6b61}
