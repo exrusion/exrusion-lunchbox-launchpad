@@ -13,7 +13,7 @@ const env = z.object({
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
   PUBLIC_APP_URL: z.string().url().default("https://lunchpad.family"),
-  CORS_ORIGINS: z.string().default("https://lunchpad.family,https://www.lunchpad.family"),
+  CORS_ORIGINS: z.string().default("https://lunchpad.family,https://www.lunchpad.family,https://lunchbox-web-production.up.railway.app"),
   ROBINHOOD_RPC_URL: z.string().url().default("https://rpc.mainnet.chain.robinhood.com"),
   PONS_FACTORY_ADDRESS: z.string().default("0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e"),
   PROTOCOL_TREASURY: z.string().default("0x4c446aF26b08cf3BcB66A551eA7B235d1E9D200a"),
