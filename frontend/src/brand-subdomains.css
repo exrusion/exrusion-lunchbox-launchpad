@@ -7,15 +7,27 @@
 .brandLogo,
 .routeBrand img {
   display: block;
-  width: 176px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
-  object-position: left center;
+  border-radius: 16px;
 }
 
 .routeBrand {
   display: flex;
   align-items: center;
+}
+
+.brandHeroArt {
+  position: absolute;
+  top: 70px;
+  right: 3vw;
+  width: min(39vw, 500px);
+  height: auto;
+  border-radius: 42px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  user-select: none;
 }
 
 .subdomainBand {
@@ -63,11 +75,26 @@
   font: 700 11px DM Mono;
 }
 
+@media (max-width: 900px) {
+  .brandHeroArt {
+    right: -90px;
+    opacity: .22;
+  }
+}
+
 @media (max-width: 620px) {
   .brandLogo,
   .routeBrand img {
-    width: 132px;
-    height: 60px;
+    width: 54px;
+    height: 54px;
+    border-radius: 13px;
+  }
+
+  .brandHeroArt {
+    top: 300px;
+    right: -110px;
+    width: 365px;
+    opacity: .2;
   }
 
   .subdomainBand {
