@@ -60,8 +60,8 @@ export function PadBuilderForm({form,setForm,onSubmit,busy}){
   <MarketConfigurator form={form} setForm={setForm}/>
   <label>Public description<textarea required minLength="12" maxLength="220" value={form.description} onChange={e=>setForm({...form,description:e.target.value})}/></label>
   <label>Lunchpad image <small>optional · PNG, JPG, WEBP or GIF · max 1.5 MB</small><input type="file" accept="image/png,image/jpeg,image/webp,image/gif" onChange={e=>setForm({...form,image:e.target.files?.[0]||null})}/></label>
-  <div className="two"><label>Accent color<input type="color" value={form.accent} onChange={e=>setForm({...form,accent:e.target.value})}/></label><label>Creator tax<select value={form.creatorTaxBps} onChange={e=>setForm({...form,creatorTaxBps:Number(e.target.value)})}><option value="200">2% · lower friction</option><option value="300">3% · balanced</option><option value="400">4% · more revenue</option></select></label></div>
-  <div className="feePreview"><b>{form.creatorTaxBps/100}% tax</b> → 70% launcher · 20% owner · 10% Lunchbox</div>
+  <div className={form.marketType==="commodities"?"":"two"}><label>Accent color<input type="color" value={form.accent} onChange={e=>setForm({...form,accent:e.target.value})}/></label>{form.marketType!=="commodities"&&<label>Creator tax<select value={form.creatorTaxBps} onChange={e=>setForm({...form,creatorTaxBps:Number(e.target.value)})}><option value="200">2% · lower friction</option><option value="300">3% · balanced</option><option value="400">4% · more revenue</option></select></label>}</div>
+  {form.marketType==="commodities"?<div className="feePreview"><b>CME V6 fee rail</b> · creators choose the trading fee and opening buy for each launch</div>:<div className="feePreview"><b>{form.creatorTaxBps/100}% tax</b> → 70% launcher · 20% owner · 10% Lunchbox</div>}
   <button className="primary" disabled={!!busy}>{busy||"Sign & deploy"}</button>
  </form>;
 }
