@@ -13,6 +13,7 @@ const env = z.object({
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
   PUBLIC_APP_URL: z.string().url().default("https://lunchpad.family"),
+  PUBLIC_API_URL: z.string().url().default("https://lunchbox-api-production.up.railway.app"),
   CORS_ORIGINS: z.string().default("https://lunchpad.family,https://www.lunchpad.family,https://lunchbox-web-production.up.railway.app"),
   ROBINHOOD_RPC_URL: z.string().url().default("https://rpc.mainnet.chain.robinhood.com"),
   PONS_FACTORY_ADDRESS: z.string().default("0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e"),
@@ -92,7 +93,7 @@ app.post("/v1/auth/verify",async req=>{
 app.post("/v1/media",{config:{rateLimit:{max:10,timeWindow:"1 minute"}}},async req=>{
  const s=await session(req.headers.authorization); const {dataUrl}=z.object({dataUrl:z.string().max(2_100_000)}).parse(req.body); const m=/^data:(image\/(png|jpeg|webp|gif));base64,([A-Za-z0-9+/=]+)$/.exec(dataUrl);
  if(!m)throw new Error("Choose a PNG, JPG, WEBP or GIF image"); const bytes=Buffer.from(m[3],"base64"); if(bytes.length>1_500_000)throw new Error("Image must be smaller than 1.5 MB");
- const result=await query("INSERT INTO media_uploads(owner_user_id,mime_type,bytes) VALUES($1,$2,$3) RETURNING id",[s.sub,m[1],bytes]); return {url:`https://api.lunchpad.family/v1/media/${result.rows[0].id}`};
+ const result=await query("INSERT INTO media_uploads(owner_user_id,mime_type,bytes) VALUES($1,$2,$3) RETURNING id",[s.sub,m[1],bytes]); return {url:`${env.PUBLIC_API_URL.replace(/\/$/,"")}/v1/media/${result.rows[0].id}`};
 });
 app.get("/v1/media/:id",async(req,reply)=>{const {rows}=await query("SELECT mime_type,bytes FROM media_uploads WHERE id=$1",[req.params.id]);if(!rows[0])return reply.code(404).send({error:"Image not found"});reply.header("content-type",rows[0].mime_type).header("cache-control","public,max-age=31536000,immutable").send(rows[0].bytes);});
 app.get("/v1/pads",async req=>{const limit=Math.min(Number(req.query.limit)||24,100);const {rows}=await query("SELECT p.*,COUNT(l.id)::int launches FROM pads p LEFT JOIN launches l ON l.pad_id=p.id GROUP BY p.id ORDER BY p.created_at DESC LIMIT $1",[limit]);return {pads:rows.map(pad)};});
