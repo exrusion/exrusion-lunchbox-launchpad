@@ -2,7 +2,7 @@ import React,{useEffect,useMemo,useState}from"react";
 import{Bot,Brain,ChevronRight,Pause,Play,Send,Sparkles}from"lucide-react";
 import"./agent-ui.css";
 
-const API=import.meta.env.VITE_API_URL||"https://api.lunchpad.family";
+const API=import.meta.env.VITE_API_URL||"https://lunchbox-api-production.up.railway.app";
 async function request(path,options){const r=await fetch(API+path,options);const d=await r.json();if(!r.ok)throw new Error(d.error||"The agent dropped its sandwich");return d}
 
 export function AgentChat({slug,pad}){
