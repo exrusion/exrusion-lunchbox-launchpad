@@ -6,7 +6,7 @@ import{ActivityPage,AdminPage,DocsPage,RevenuePage,TechSections,TreasuryPage}fro
 import{AgentChat}from"./agent-ui";
 import"./styles.css";
 
-const API=import.meta.env.VITE_API_URL||"https://api.lunchpad.family";
+const API=import.meta.env.VITE_API_URL||"https://lunchbox-api-production.up.railway.app";
 const FACTORY="0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e",ZERO="0x0000000000000000000000000000000000000000";
 const chain=defineChain({id:4663,name:"Robinhood Chain",nativeCurrency:{name:"Ether",symbol:"ETH",decimals:18},rpcUrls:{default:{http:["https://rpc.mainnet.chain.robinhood.com"]}},blockExplorers:{default:{name:"Blockscout",url:"https://robinhoodchain.blockscout.com"}}});
 const registryAbi=[{type:"function",name:"registerPad",stateMutability:"nonpayable",inputs:[{name:"padId",type:"bytes32"},{name:"padOwner",type:"address"},{name:"slug",type:"string"},{name:"metadataURI",type:"string"}],outputs:[]}];
