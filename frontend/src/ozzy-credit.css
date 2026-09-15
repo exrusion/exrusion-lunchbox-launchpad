@@ -1,0 +1,8 @@
+.eyebrow a {
+  border-bottom: 1px solid currentColor;
+  font-weight: 700;
+}
+
+.eyebrow a:hover {
+  color: var(--red);
+}
