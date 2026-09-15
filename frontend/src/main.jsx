@@ -23,9 +23,9 @@ const domainPadSlug=location.hostname.endsWith(DOMAIN_SUFFIX)?location.hostname.
 const activeSubdomain=/^[a-z0-9-]+$/.test(domainPadSlug)&&!RESERVED_SUBDOMAINS.has(domainPadSlug)?domainPadSlug:"";
 const mainSiteUrl=activeSubdomain?"https://www.lunchpad.family/":"/";
 const storefrontUrl=slug=>["localhost","127.0.0.1"].includes(location.hostname)||location.hostname.endsWith(".vercel.app")?`/pad/${slug}`:`https://${slug}.lunchpad.family/`;
-function Brand(){return <a className="brand" href={mainSiteUrl} aria-label="Lunchpad home"><img className="brandLogo" src="/lunchpad-logo.webp" alt="Lunchpad"/></a>}
+function Brand(){return <a className="brand" href={mainSiteUrl} aria-label="Lunchpad home"><img className="brandLogo" src="/lunchpad-logo-transparent.png" alt="Lunchpad"/></a>}
 function SocialX(){return <a className="socialX" href="https://x.com/Lunchfamilypad" target="_blank" rel="noreferrer" aria-label="Follow Lunchpad Family on X"><span aria-hidden="true">𝕏</span></a>}
-function PadLogo({src,alt}){return <img src={src||"/lunchpad-logo.webp"} alt={alt} onError={event=>{event.currentTarget.onerror=null;event.currentTarget.src="/lunchpad-logo.webp"}}/>}
+function PadLogo({src,alt}){return <img src={src||"/lunchpad-logo-transparent.png"} alt={alt} onError={event=>{event.currentTarget.onerror=null;event.currentTarget.src="/lunchpad-logo-transparent.png"}}/>}
 async function json(path,options){const r=await fetch(`${API}${path}`,options);const raw=await r.text();let d={};try{d=raw?JSON.parse(raw):{}}catch{throw new Error(r.ok?"Lunchbox returned an invalid response":`Lunchbox request failed (${r.status})`)}if(!r.ok)throw new Error(d.error||d.message||`Lunchbox request failed (${r.status})`);return d;}
 async function uploadMedia(file,jwt){if(!file)return"";if(file.size>1_500_000)throw new Error("Image must be smaller than 1.5 MB");const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});return(await json("/v1/media",{method:"POST",headers:{"content-type":"application/json",authorization:`Bearer ${jwt}`},body:JSON.stringify({dataUrl})})).url}
 
